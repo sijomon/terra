@@ -31,14 +31,7 @@ module "vnet" {
   resource_group_name = var.resource_group_name
 }
 
-# Define module for public IP address
-/*module "public_ip" {
-  source              = "Azure/compute/azurerm"
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  allocation_method   = "Static"
-  vnet_subnet_id      = module.subnets["public"].subnet_id
-}*/
+
 
 resource "azurerm_public_ip" "pip" {
  
@@ -62,8 +55,7 @@ locals {
       route_table_id   = null  # Optional: Provide route table ID
       nat_gateway_enabled  = false
       public_ip_address_id = null  # Optional: Provide public IP address ID for NAT
-      //public_ip_address_id = azurerm_public_ip.pip.public_ip_address_id
-    }
+      
     private_nat = {
       name             = "subnet-private-nat"
       address_prefixes = ["10.0.2.0/24"]
@@ -71,7 +63,6 @@ locals {
       nsg_id           = null  # Optional: Provide NSG ID
       route_table_id   = null  # Optional: Provide route table ID
       nat_gateway_enabled  = true
-      #public_ip_address_id = module.public_ip.nat_public_ip_id  # Provide the ID of the public IP for NAT
       public_ip_address_id = azurerm_public_ip.pip.id
     }
     private_no_nat = {
@@ -97,7 +88,7 @@ module "subnets" {
   resource_group_name  = var.resource_group_name
   vnet_name            = var.vnet_name
   address_prefixes     = each.value.address_prefixes
-  availability_zones   = each.value.availability_zones[0]
+  availability_zones   = each.value.availability_zone
   nsg_id               = each.value.nsg_id
   route_table_id       = each.value.route_table_id
   nat_gateway_enabled  = each.value.nat_gateway_enabled

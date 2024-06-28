@@ -17,8 +17,8 @@ variable "address_prefixes" {
 
 
 variable "availability_zones" {
-  type    = list(string)
-  default = ["1", "2", "3"]  # Example: List of Availability Zones
+  
+  default = "1"  # Example: List of Availability Zones
 }
 
 

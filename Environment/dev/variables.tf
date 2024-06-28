@@ -2,15 +2,15 @@
 # Define variables
 variable "location" {
   description = "Location/region of the resources"
-  default     = "East US"
+  default     = "Jio India West "
 }
 
 variable "resource_group_name" {
   description = "Name of the resource group"
-  default     = "rgsijo"
+  default     = "InWdistrg01"
 }
 
 variable "vnet_name" {
   description = "Name of the virtual network"
-  default     = "vnetsijo"
+  default     = "InWdistvnet01"
 }
